@@ -88,10 +88,20 @@ Este archivo `docker-compose.yml` configura un ambiente de desarrollo completo p
 
 Ambos servicios están conectados a una red llamada `dev_network`.
 
+## Levantando los Contenedores
+Para levantar los contenedores con el entorno de desarrollo, se deben de seguir estos pasos:
+
+1. Asegurarse de que el motor de Docker esté corriendo.
+1. Acceder al directorio raíz del repositorio.
+2. Ejecutar el siguiente comando para levantar los contenedores en segundo plano:
+   ```sh
+   docker-compose up -d
+3. Lo anterior le indica a Docker que debe ejecutar el contenido del archivo docker-compose.yml
+
 ## Todos los Comandos para Entrar al Contenedor y Corroborar las Versiones de las Tecnologías
 
 ```sh
-# Accede al contenedor
+# Acceder al contenedor
 docker exec -it dev_container sh
 
 # Verificar Node.js y npm
