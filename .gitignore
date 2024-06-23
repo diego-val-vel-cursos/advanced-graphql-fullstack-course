@@ -56,14 +56,6 @@ import/
 # Netlify
 .netlify
 
-# Docker
-docker-compose.override.yml
-.env
-
-# Ignore any local environment files
-.env.local
-.env.*.local
-
 # Ignore the coverage directory created by tools like istanbul or jest
 coverage/
 
