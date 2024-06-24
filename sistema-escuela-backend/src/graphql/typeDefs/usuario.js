@@ -11,8 +11,6 @@ const usuarioTypeDefs = gql`
 
   extend type Query {
     login(correo: String!, password: String!, rol: String!): Usuario
-    usuarios: [Usuario]
-    usuario(id: ID!): Usuario
   }
 
   extend type Mutation {

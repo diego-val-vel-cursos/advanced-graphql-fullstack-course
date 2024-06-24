@@ -43,18 +43,6 @@ const usuarioResolvers = {
         await session.close();
       }
     },
-    usuarios: async () => {
-      const session = driver.session();
-      const result = await session.run('MATCH (u:Usuario) RETURN u');
-      await session.close();
-      return result.records.map(record => record.get('u').properties);
-    },
-    usuario: async (_, { id }) => {
-      const session = driver.session();
-      const result = await session.run('MATCH (u:Usuario {id: $id}) RETURN u', { id });
-      await session.close();
-      return result.records[0].get('u').properties;
-    }
   },
   Mutation: {
     crearUsuario: async (_, { correo, password, rol, idUsuario }) => {
