@@ -13,25 +13,28 @@ const profesorResolvers = {
       const session = driver.session();
       const result = await session.run('MATCH (p:Profesor {id: $id}) RETURN p', { id });
       await session.close();
+      if (result.records.length === 0) {
+        throw new Error('Profesor no encontrado');
+      }
       return result.records[0].get('p').properties;
     }
   },
   Mutation: {
-    crearProfesor: async (_, { nombre, edad, materia }) => {
+    crearProfesor: async (_, { nombre, edad }) => {
       const session = driver.session();
-      const id = uuidv4(); // GENERAR EL UUID AQUÍ
+      const id = uuidv4();
       const result = await session.run(
-        'CREATE (p:Profesor {id: $id, nombre: $nombre, edad: $edad, materia: $materia}) RETURN p',
-        { id, nombre, edad, materia }
+        'CREATE (p:Profesor {id: $id, nombre: $nombre, edad: $edad}) RETURN p',
+        { id, nombre, edad }
       );
       await session.close();
       return result.records[0].get('p').properties;
     },
-    actualizarProfesor: async (_, { id, nombre, edad, materia }) => {
+    actualizarProfesor: async (_, { id, nombre, edad }) => {
       const session = driver.session();
       const result = await session.run(
-        'MATCH (p:Profesor {id: $id}) SET p += {nombre: $nombre, edad: $edad, materia: $materia} RETURN p',
-        { id, nombre, edad, materia }
+        'MATCH (p:Profesor {id: $id}) SET p += {nombre: $nombre, edad: $edad} RETURN p',
+        { id, nombre, edad }
       );
       await session.close();
       return result.records[0].get('p').properties;

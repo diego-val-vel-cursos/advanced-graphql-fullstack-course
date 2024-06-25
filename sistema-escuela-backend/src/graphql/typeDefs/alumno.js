@@ -5,7 +5,7 @@ const alumnoTypeDefs = gql`
     id: ID!
     nombre: String!
     edad: Int!
-    curso: String!
+    grupo: Grupo!
   }
 
   extend type Query {
@@ -14,8 +14,8 @@ const alumnoTypeDefs = gql`
   }
 
   extend type Mutation {
-    crearAlumno(nombre: String!, edad: Int!, curso: String!): Alumno
-    actualizarAlumno(id: ID!, nombre: String, edad: Int, curso: String): Alumno
+    crearAlumno(nombre: String!, edad: Int!, grupo_id: ID!): Alumno
+    actualizarAlumno(id: ID!, nombre: String, edad: Int, grupo_id: ID): Alumno
     eliminarAlumno(id: ID!): String
   }
 `;
