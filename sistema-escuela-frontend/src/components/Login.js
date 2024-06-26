@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLazyQuery, gql } from '@apollo/client';
 import { Container, Box, TextField, Button, Typography, Alert, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const LOGIN_QUERY = gql`
   query Query($correo: String!, $password: String!, $rol: String!) {
@@ -19,12 +20,18 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [rol, setRol] = useState('');
   const [login, { data, loading, error }] = useLazyQuery(LOGIN_QUERY);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await login({ variables: { correo, password, rol } });
-      // Manejar el almacenamiento del token y redireccionamiento
+      const result = await login({ variables: { correo, password, rol } });
+      if (result.data.login) {
+        localStorage.setItem('userEmail', result.data.login.correo);
+        localStorage.setItem('userRole', result.data.login.rol);
+        localStorage.setItem('userId', result.data.login.idUsuario);
+        navigate('/home');
+      }
     } catch (err) {
       console.error(err);
     }
