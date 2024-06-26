@@ -10,8 +10,8 @@ const calificacionResolvers = {
         '(c)-[:DE]->(m:Materia), ' +
         '(c)-[:ASIGNADA_POR]->(p:Profesor) ' +
         'RETURN c, a, g, gr, m, p ' +
-        'SKIP toInteger($offset) LIMIT toInteger($limit)', 
-        { limit: parseInt(limit, 10), offset: parseInt(offset, 10) }
+        'SKIP $offset LIMIT $limit',
+        { limit, offset }
       );
       await session.close();
       return result.records.map(record => ({

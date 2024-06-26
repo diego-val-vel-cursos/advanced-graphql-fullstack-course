@@ -7,8 +7,8 @@ const profesorResolvers = {
       const session = driver.session();
       const result = await session.run(
         'MATCH (p:Profesor) RETURN p ' +
-        'SKIP toInteger($offset) LIMIT toInteger($limit)', 
-        { limit: parseInt(limit, 10), offset: parseInt(offset, 10) }
+        'SKIP $offset LIMIT $limit', 
+        { limit, offset }
       );
       await session.close();
       return result.records.map(record => record.get('p').properties);
