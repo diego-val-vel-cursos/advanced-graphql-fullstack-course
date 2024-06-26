@@ -9,13 +9,3 @@ export const GET_PROFESOR = gql`
     }
   }
 `;
-
-export const UPDATE_PROFESOR = gql`
-  mutation Mutation($actualizarProfesorId: ID!, $nombre: String, $edad: Int) {
-    actualizarProfesor(id: $actualizarProfesorId, nombre: $nombre, edad: $edad) {
-      id
-      nombre
-      edad
-    }
-  }
-`;

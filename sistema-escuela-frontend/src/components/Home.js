@@ -2,7 +2,6 @@ import React from 'react';
 import { Container, Box, Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import Alumno from './Alumno';
-import Profesor from './Profesor';
 
 const Home = () => {
   const userEmail = localStorage.getItem('userEmail');
@@ -29,7 +28,6 @@ const Home = () => {
           </Typography>
         )}
         {userRole === 'alumno' && <Alumno idUsuario={userId} />}
-        {userRole === 'profesor' && <Profesor idUsuario={userId} />}
         <Button variant="contained" color="secondary" onClick={handleLogout}>
           Cerrar sesión
         </Button>
