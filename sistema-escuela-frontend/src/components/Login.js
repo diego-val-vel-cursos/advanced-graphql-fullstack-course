@@ -71,7 +71,6 @@ const Login = () => {
               required
             >
               <MenuItem value="alumno">Alumno</MenuItem>
-              <MenuItem value="profesor">Profesor</MenuItem>
             </Select>
           </FormControl>
           <Button type="submit" variant="contained" color="primary" fullWidth disabled={loading}>
