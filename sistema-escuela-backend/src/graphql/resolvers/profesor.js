@@ -3,9 +3,13 @@ const driver = require('../../config/neo4j');
 
 const profesorResolvers = {
   Query: {
-    profesores: async () => {
+    profesores: async (_, { limit = 10, offset = 0 }) => {
       const session = driver.session();
-      const result = await session.run('MATCH (p:Profesor) RETURN p');
+      const result = await session.run(
+        'MATCH (p:Profesor) RETURN p ' +
+        'SKIP $offset LIMIT $limit', 
+        { limit, offset }
+      );
       await session.close();
       return result.records.map(record => record.get('p').properties);
     },

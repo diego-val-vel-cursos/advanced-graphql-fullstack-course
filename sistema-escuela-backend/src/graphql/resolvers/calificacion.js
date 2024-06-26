@@ -3,13 +3,15 @@ const driver = require('../../config/neo4j');
 
 const calificacionResolvers = {
   Query: {
-    calificaciones: async () => {
+    calificaciones: async (_, { limit = 10, offset = 0 }) => {
       const session = driver.session();
       const result = await session.run(
         'MATCH (c:Calificacion)-[:TIENE_CALIFICACION]->(a:Alumno)-[:PERTENECE_A]->(g:Grupo)-[:PERTENECE_A]->(gr:Grado), ' +
         '(c)-[:DE]->(m:Materia), ' +
         '(c)-[:ASIGNADA_POR]->(p:Profesor) ' +
-        'RETURN c, a, g, gr, m, p'
+        'RETURN c, a, g, gr, m, p ' +
+        'SKIP $offset LIMIT $limit',
+        { limit, offset }
       );
       await session.close();
       return result.records.map(record => ({

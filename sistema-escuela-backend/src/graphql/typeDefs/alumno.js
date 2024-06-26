@@ -9,7 +9,7 @@ const alumnoTypeDefs = gql`
   }
 
   extend type Query {
-    alumnos: [Alumno]
+    alumnos(limit: Int, offset: Int): [Alumno]
     alumno(id: ID!): Alumno
   }
 

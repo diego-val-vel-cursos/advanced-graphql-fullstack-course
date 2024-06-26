@@ -3,9 +3,14 @@ const driver = require('../../config/neo4j');
 
 const alumnoResolvers = {
   Query: {
-    alumnos: async () => {
+    alumnos: async (_, { limit = 10, offset = 0 }) => {
       const session = driver.session();
-      const result = await session.run('MATCH (a:Alumno)-[:PERTENECE_A]->(g:Grupo)-[:PERTENECE_A]->(gr:Grado) RETURN a, g, gr');
+      const result = await session.run(
+        'MATCH (a:Alumno)-[:PERTENECE_A]->(g:Grupo)-[:PERTENECE_A]->(gr:Grado) ' +
+        'RETURN a, g, gr ' +
+        'SKIP toInteger($offset) LIMIT toInteger($limit)', 
+        { limit: parseInt(limit, 10), offset: parseInt(offset, 10) }
+      );
       await session.close();
       return result.records.map(record => ({
         ...record.get('a').properties,

@@ -8,7 +8,7 @@ const profesorTypeDefs = gql`
   }
 
   extend type Query {
-    profesores: [Profesor]
+    profesores(limit: Int, offset: Int): [Profesor]
     profesor(id: ID!): Profesor
   }
 

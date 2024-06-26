@@ -11,7 +11,7 @@ const calificacionTypeDefs = gql`
   }
 
   extend type Query {
-    calificaciones: [Calificacion]
+    calificaciones(limit: Int, offset: Int): [Calificacion]
     calificacion(id: ID!): Calificacion
   }
 
