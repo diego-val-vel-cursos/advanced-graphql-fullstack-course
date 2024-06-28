@@ -58,6 +58,3 @@ import/
 
 # Ignore the coverage directory created by tools like istanbul or jest
 coverage/
-
-# Ignore public directory
-public/
